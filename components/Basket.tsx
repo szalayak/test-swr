@@ -1,17 +1,24 @@
-import { useBasket } from '../store';
+import { useBasket, useClearBasket } from '../store';
 import styles from '../styles/Home.module.css'
 
 export const Basket = () => {
 
-    console.log("basket rendered");
     const { data: basket, error, isLoading } = useBasket();
+    const [clearBasket] = useClearBasket();
 
     if (error) return <>{error}</>;
 
     if (isLoading) {
+        console.log("loading basket");
         return <div className={styles.card}>
             <h2>Loading</h2>
         </div>
+    }
+
+    console.log("rendered basket");
+
+    const handleClearBasket = () => {
+        clearBasket();
     }
 
     return <div className={styles.card}>
@@ -36,6 +43,9 @@ export const Basket = () => {
                 })}
             </tbody>
         </table>
+        <div style={{ display: "flex", width: "100%", justifyContent: "center" }}>
+            <button onClick={handleClearBasket}>Clear Basket</button>
+        </div>
     </div>
 
 }

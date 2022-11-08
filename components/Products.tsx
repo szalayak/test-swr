@@ -4,26 +4,24 @@ import styles from '../styles/Home.module.css'
 
 export const Products = () => {
 
-    console.log("products rendered");
-
     const { data: products, error, isLoading } = useProducts();
     const { data: categories, error: categoryError, isLoading: categoryLoading } = useCategories();
     const [addToBasket] = useAddToBasket();
-
-    console.log({ categories, products });
 
     if (error) return <>{error}</>;
 
     if (categoryError) return <>{categoryError}</>;
 
     if (isLoading || categoryLoading) {
+        console.log("loading products");
         return <div className={styles.card}>
             <h2>Loading</h2>
         </div>
     }
 
+    console.log("rendered products");
+
     const handleAddToBasket = (product: Product) => {
-        console.log(product);
         addToBasket({
             id: product.id,
             name: product.name,

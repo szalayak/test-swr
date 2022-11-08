@@ -68,3 +68,15 @@ export const useAddToBasket = () => {
 
   return [addToBasket];
 };
+
+export const useClearBasket = () => {
+  const { mutate } = useSWRConfig();
+
+  const clearBasket = async () => {
+    const updateFn = async () => fetch("/api/basket", {method: "DELETE"}).then(res => res.json());
+    const updatedBasket = await mutate<Basket>("/api/basket", updateFn());
+    return updatedBasket;
+  }
+
+  return [clearBasket];
+}

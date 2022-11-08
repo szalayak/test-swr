@@ -8,7 +8,6 @@ import { SWRConfig } from "swr";
 export const getServerSideProps = async () => {
   const products = await getProductsFromApi();
   const categories = await getCategoriesFromApi();
-  console.log({ products, categories });
   return {
     props: {
       fallback: {
@@ -20,8 +19,7 @@ export const getServerSideProps = async () => {
 }
 
 export default function Home({ fallback }: { fallback: { [key: string]: unknown } }) {
-  console.log("index rendered");
-  console.log({ fallback });
+  console.log("rendered index");
   return (
     <div className={styles.container}>
       <Head>
